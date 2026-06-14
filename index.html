@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Complaint Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>🏛️ Smart Complaint Portal</h1>
+    <p class="subtitle">
+        Report public issues and help improve your community
+    </p>
+    <form id="complaintForm">
+        <input type="text"
+               id="name"
+               placeholder="Your Name"
+               required>
+        <input type="tel"
+               id="phone"
+               placeholder="Phone Number"
+               required>
+        <input type="text"
+               id="area"
+               placeholder="Area"
+               required>
+        <select id="issue" required>
+            <option value="">Select Issue</option>
+            <option>Garbage</option>
+            <option>Street Light</option>
+            <option>Water Leakage/Water Supply</option>
+            <option>Road Damage</option>
+            <option>Public Space Obstruction</option>
+        </select>
+        <select id="priority" required>
+            <option value="">Priority</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+            <option>Emergency</option>
+        </select>
+        <textarea id="description"
+                  placeholder="Describe the issue"
+                  required></textarea>
+        <input type="file"
+                  id="image"
+                  accept="image/*">      
+        <button type="submit">
+            Submit Complaint
+        </button>
+    </form>
+    <p id="message"></p>
+    <div class="status-box">
+        <h3>Complaint Status Guide</h3>
+        <ul>
+            <li>🟡 Pending</li>
+            <li>🔵 Accepted</li>
+            <li>🟠 In Progress</li>
+            <li>🟢 Completed</li>
+            <li>🔴 Rejected</li>
+        </ul>
+    </div>
+    <!-- ICON MENU -->
+    <div class="icon-menu">
+    <a href="track.html" class="icon-card">
+        <div class="icon">🔍</div>
+        <span>Track Complaint</span>
+    </a>
+    <a href="official-login.html" class="icon-card">
+        <div class="icon">👮</div>
+        <span>Official Login</span>
+    </a>
+</div>
+</div>
+<script type="module" src="script.js"></script>
+</body>
+</html>

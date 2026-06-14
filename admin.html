@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>Official Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>👮 Official Dashboard</h1>
+        <p class="subtitle">
+            Manage complaints and review evidence submitted by citizens
+        </p>
+        <div style="
+            display:flex;
+            justify-content:center;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-bottom:20px;
+        ">
+            <button id="logoutBtn">
+                🚪 Logout
+            </button>
+            <button onclick="location.reload()">
+                🔄 Refresh Dashboard
+            </button>
+        </div>
+        <!-- Analytics Dashboard -->
+        <div class="analytics">
+            <div class="card">
+                <h3>Total Complaints</h3>
+                <p id="totalCount">0</p>
+            </div>
+            <div class="card">
+                <h3>Pending</h3>
+                <p id="pendingCount">0</p>
+            </div>
+            <div class="card">
+                <h3>Accepted</h3>
+                <p id="acceptedCount">0</p>
+            </div>
+            <div class="card">
+                <h3>In Progress</h3>
+                <p id="progressCount">0</p>
+            </div>
+            <div class="card">
+                <h3>Completed</h3>
+                <p id="completedCount">0</p>
+            </div>
+            <div class="card">
+                <h3>Rejected</h3>
+                <p id="rejectedCount">0</p>
+            </div>
+        </div>
+        <!-- Complaints Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Complaint ID</th>
+                        <th>Name</th>
+                        <th>Area</th>
+                        <th>Issue</th>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Evidence</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="complaintTable">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
