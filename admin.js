@@ -35,10 +35,12 @@ onValue(complaintsRef, (snapshot) => {
     if (!data) {
         table.innerHTML = `
             <tr>
-                <td colspan="9">No complaints found.</td>
+                <td colspan="10">
+                    No complaints found.
+                </td>
             </tr>
         `;
-        updateAnalytics(0, 0, 0, 0, 0, 0);
+        updateAnalytics(0,0,0,0,0,0);
         return;
     }
     for (let id in data) {
@@ -65,77 +67,94 @@ onValue(complaintsRef, (snapshot) => {
                 break;
         }
         table.innerHTML += `
-            <tr>
-                <td>${c.complaintID || "-"}</td>
-                <td>${c.name || "-"}</td>
-                <td>${c.area || "-"}</td>
-                <td>${c.issue || "-"}</td>
-                <td>${c.description || "-"}</td>
-                <td>${c.priority || "-"}</td>
-                <td>${c.status || "Pending"}</td>
-                <td>
-                    ${
-                        c.imageURL
-                        ? `
-                            <img
-                                src="${c.imageURL}"
-                                width="80"
-                                height="80"
-                                style="
-                                    border-radius:8px;
-                                    object-fit:cover;
-                                    border:1px solid #ddd;
-                                "
-                            >
-                            <br><br>
-                            <a
-                                href="${c.imageURL}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Open Full Size
-                            </a>
-                        `
-                        : "No Image"
-                    }
-                </td>
-                <td>
-                    <button
-                        class="action-btn"
-                        onclick="updateStatus('${id}','Accepted')"
-                    >
-                        Accept
-                    </button>
-                    <button
-                        class="action-btn"
-                        onclick="updateStatus('${id}','In Progress')"
-                    >
-                        Start
-                    </button>
-                    <button
-                        class="action-btn"
-                        onclick="updateStatus('${id}','Completed')"
-                    >
-                        Complete
-                    </button>
-                    <button
-                        class="action-btn"
-                        onclick="updateStatus('${id}','Rejected')"
-                    >
-                        Reject
-                    </button>
-                </td>
-            </tr>
+        <tr>
+            <td>${c.complaintID || "-"}</td>
+            <td>${c.name || "-"}</td>
+            <td>${c.area || "-"}</td>
+            <td>${c.issue || "-"}</td>
+            <td>${c.description || "-"}</td>
+            <td>${c.priority || "-"}</td>
+            <td>${c.status || "Pending"}</td>
+            <td>
+            ${
+                c.imageURL
+                ?
+                `
+                <img
+                    src="${c.imageURL}"
+                    width="80"
+                    height="80"
+                    style="
+                    border-radius:8px;
+                    object-fit:cover;
+                    border:1px solid #ddd;
+                    "
+                >
+                <br><br>
+                <a
+                    href="${c.imageURL}"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Open Full Size
+                </a>
+                `
+                :
+                "No Image"
+            }
+            </td>
+            <td>
+            ${
+                c.latitude && c.longitude
+                ?
+                `
+                <a
+                href="https://www.google.com/maps?q=${c.latitude},${c.longitude}"
+                target="_blank">
+                📍 View
+                </a>
+                <br><br>
+                <a
+                href="https://www.google.com/maps/dir/?api=1&destination=${c.latitude},${c.longitude}"
+                target="_blank">
+                🧭 Navigate
+                </a>
+                `
+                :
+                "Location Not Available"
+            }
+            </td>
+            <td>
+                <button
+                class="action-btn"
+                onclick="updateStatus('${id}','Accepted')">
+                Accept
+                </button>
+                <button
+                class="action-btn"
+                onclick="updateStatus('${id}','In Progress')">
+                Start
+                </button>
+                <button
+                class="action-btn"
+                onclick="updateStatus('${id}','Completed')">
+                Complete
+                </button>
+                <button
+                class="action-btn"
+                onclick="updateStatus('${id}','Rejected')">
+                Reject
+                </button>
+            </td>
+        </tr>
         `;
     }
     if (total === 0) {
-
         table.innerHTML = `
-            <tr>
-                <td colspan="9">
-                    No complaints found for ${department}.
-                </td>
-            </tr>
+        <tr>
+            <td colspan="10">
+                No complaints found for ${department}.
+            </td>
+        </tr>
         `;
     }
     updateAnalytics(
@@ -162,21 +181,22 @@ function updateAnalytics(
     document.getElementById("completedCount").textContent = completed;
     document.getElementById("rejectedCount").textContent = rejected;
 }
-window.updateStatus = function (id, status) {
+window.updateStatus = function(id, status) {
     update(ref(database, "complaints/" + id), {
         status: status,
         updatedAt: new Date().toLocaleString()
     })
     .then(() => {
-        console.log(`Complaint updated to ${status}`);
+        console.log("Complaint updated successfully");
     })
     .catch((error) => {
-        alert("Error updating status: " + error.message);
         console.error(error);
+        alert("Error updating complaint: " + error.message);
     });
 };
-document.getElementById("logoutBtn")
-.addEventListener("click", () => {
-    localStorage.removeItem("department");
-    window.location.href = "official-login.html";
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    if(confirm("Are you sure you want to logout?")){
+        localStorage.removeItem("department");
+        window.location.href = "official-login.html";
+    }
 });
